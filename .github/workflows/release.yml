@@ -1,0 +1,41 @@
+name: CI & CD
+on:
+  release:
+    types:
+      - created
+jobs:
+  test:
+    name: 👨‍🔧 Testing
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - uses: borales/actions-yarn@v4
+        with:
+          cmd: install
+      - uses: borales/actions-yarn@v4
+        with:
+          cmd: test
+         
+
+  publish:
+    name: 🚀 Publishing to NPM
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          registry-url: https://registry.npmjs.org/
+      - uses: borales/actions-yarn@v4
+        with:
+          cmd: install
+      - uses: borales/actions-yarn@v4
+        with:
+          cmd: build
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
