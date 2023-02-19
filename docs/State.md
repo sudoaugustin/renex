@@ -3,20 +3,15 @@
 ```TSX
 import { State } from 'renex';
 
-const Theme = () => (
-  <State initial={false}>
-    {(isDark, setDark) => { /* RENDER */ }}
-  </State>
-);
+<State initial={false}>
+  {(state, setState) => { /* ... */ }}
+</State>
 
 
 // If you need more control on the data type
-
-const Theme = () => (
-  <State<'light' | 'dark' | 'dim'> initial="light">
-    {(theme, setTheme) => { /* RENDER */ }}
-  </State>
-);
+<State<'light' | 'dark' | 'dim'> >
+  {/* ... */}
+</State>
 ```
 
 ## Props

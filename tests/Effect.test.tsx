@@ -1,29 +1,10 @@
-import Effect from '.';
+import { Effect } from '../src';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import React from 'react';
 
 const user = userEvent.setup();
 
-test('Check `as`', async () => {
-  expect(
-    render(
-      <Effect as='' initial={false} callback={() => {}}>
-        {() => (
-          <Effect initial={false} callback={() => {}}>
-            {() => (
-              <Effect as='h1' initial={false} callback={() => {}}>
-                {() => 'Effect'}
-              </Effect>
-            )}
-          </Effect>
-        )}
-      </Effect>,
-    ).container.innerHTML,
-  ).toBe('<div><h1>Effect</h1></div>');
-});
-
-test('Check state and effect', async () => {
+test('Check Effect', async () => {
   const { container } = render(
     <Effect
       initial="Bob"

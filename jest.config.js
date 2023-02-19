@@ -1,8 +1,9 @@
 /** @type {import('ts-jest').JestConfigWithTsJest} */
 
 module.exports = {
-  roots: ['src'],
-  testMatch: ['**/?(*.)+(test).+(ts|tsx|js)'],
+  roots: ['tests'],
+  testMatch: ['**/?(*.)+(test).+(ts|tsx)'],
   transform: { '^.+\\.tsx$': 'esbuild-jest' },
   testEnvironment: 'jsdom',
+  setupFilesAfterEnv: ['./jest.globals.js'],
 };

@@ -1,7 +1,7 @@
 {
   "name": "renex",
   "author": "https://github.com/sudoaugustin",
-  "version": "0.0.2",
+  "version": "0.1.0-0",
   "license": "MIT",
   "description": "Useful react components that will save your day",
   "main": "cjs/index.js",
@@ -15,14 +15,17 @@
   ],
   "keywords": [
     "react",
+    "hooks",
+    "components",
+    "memo",
     "state",
     "effect"
   ],
   "scripts": {
     "test": "jest",
     "build": "rm -rf cjs esm && yarn build:esm && yarn build:cjs",
-    "build:esm": "tsc -p tsconfig.build.json --outDir ./esm && esbuild src/index.tsx src/*/index.tsx --format=esm --outdir=./esm",
-    "build:cjs": "tsc -p tsconfig.build.json --outDir ./cjs && esbuild src/index.tsx src/*/index.tsx --format=cjs --outdir=./cjs",
+    "build:esm": "tsc -p tsconfig.build.json --outDir ./esm && esbuild src/*.tsx --format=esm --outdir=./esm",
+    "build:cjs": "tsc -p tsconfig.build.json --outDir ./cjs && esbuild src/*.tsx --format=cjs --outdir=./cjs",
     "prepare": "husky install"
   },
   "bugs": {
