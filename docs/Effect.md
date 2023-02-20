@@ -3,33 +3,22 @@
 ```TSX
 import { Effect } from 'renex';
 
-const Theme = () => (
-  <Effect
-    initial={false}
-    callback={(isDark, setDark) => {
-      document.body.className = isDark ? 'dark' : 'light'
-    }}
-  >
-    {(isDark, setDark) => { /* RENDER */ }}
-  </Effect>
-);
+<Effect
+  initial={false}
+  callback={(state, setState) => {
+    /* ... */
+  }}
+>
+  {(state, setState) => { /* ... */ }}
+</Effect>
 
 
 // If you need more control on the data type
-
-const Theme = () => (
-  <Effect<'light' | 'dark' | 'dim'>
-    initial={false}
-    callback={(theme) => {
-      // NOTE: The setTimeout is use only to show the effect cleanup.
-      const timeout = setTimeout(() => (document.body.className = theme), 1000);
-      return () => clearTimeout(timeout);
-    }}
-  >
-    {(theme, setTheme) => { /* RENDER */ }}
-  </Effect>
-);
+<Effect<'light' | 'dark' | 'dim'>>
+  ...
+</Effect>
 ```
+
 ## Props
 
 | Name | Type | Default | Description 
