@@ -1,9 +1,9 @@
 import { CProps } from '../types';
-import { Fragment, ReactNode, createElement, useMemo } from 'react';
+import { DependencyList, Fragment, ReactNode, createElement, useMemo } from 'react';
 
-type Props = CProps & { deps: unknown[]; children: ReactNode };
+type Props<T> = CProps & { deps: T; children: (deps: T) => ReactNode };
 
-export default function Memo({ as = 'div', deps, children, ...rest }: Props) {
-  const $children = useMemo(() => createElement(as || Fragment, rest, children), deps);
-  return $children;
+export default function Memo<T extends DependencyList>({ as = 'div', deps, children, ...rest }: Props<T>) {
+  const $children = useMemo(() => children(deps), deps);
+  return createElement(as || Fragment, rest, $children);
 }

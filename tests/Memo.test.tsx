@@ -14,8 +14,8 @@ test('Check Memo', async () => {
             onClick={() => setUser({ ...user, name: 'bob' })}
             onDoubleClick={() => setUser({ ...user, last_update: 'Just Now' })}
           />
-          <Memo data-testid="link" deps={[user.last_update]} className={user.name}>
-            domain.com/{user.name}
+          <Memo data-testid="link" deps={[user.last_update]}>
+            {() => `domain.com/${user.name}`}
           </Memo>
         </div>
       )}
@@ -27,11 +27,9 @@ test('Check Memo', async () => {
 
   await user.click(btn);
 
-  expect(link.className).toBe('alice');
   expect(link.textContent).toBe('domain.com/alice');
 
   await user.dblClick(btn);
 
-  expect(link.className).toBe('bob');
   expect(link.textContent).toBe('domain.com/bob');
 });
