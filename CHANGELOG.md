@@ -1,7 +1,7 @@
 ## [0.1.0](https://github.com/sudoaugustin/renex/compare/v0.0.2...v0.1.0)
 
 ### Added
-- `Memo` to memoize the component itself and it's child
+- `Memo` - Memoize the children
 
 ### Changed
 - Move test files into `/tests`
@@ -11,5 +11,5 @@
 ## [0.0.2](https://github.com/sudoaugustin/renex/releases/tag/v0.0.2)
 
 ### Added
-- `State` to manage state easier
-- `Effect` to manage state and invoke callback when state changes
+- `State` - Manage state easier
+- `Effect` - Manage state and invoke callback when state changes
