@@ -1,4 +1,4 @@
-## [0.1.0](https://github.com/sudoaugustin/renex/compare/v0.0.2...v0.1.0)
+## [0.2.0](https://github.com/sudoaugustin/renex/compare/v0.0.2...v0.2.0)
 
 ### Added
 - `Memo` - Memoize the children
