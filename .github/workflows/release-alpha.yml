@@ -30,13 +30,14 @@ jobs:
       
       - name: Set vars
         run: |
+          echo "VERSION=$(npm view ./ version)" >> $GITHUB_ENV
           echo "COMMIT_ID=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
 
       - name: Build & Publish
         run: |
           npm install
           npm run build
-          npm version 0.0.0-alpha.${{ env.COMMIT_ID }} --force --no-git-tag-version
+          npm version ${{ env.VERSION }}-alpha.${{ env.COMMIT_ID }} --force --no-git-tag-version
           npm publish --tag alpha
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
