@@ -1,13 +1,13 @@
 import { CProps, StateConsumer } from '../types';
-import { Fragment, ReactNode, createElement, useState } from 'react';
+import { element } from '../utils';
+import { ReactNode, useState } from 'react';
 
 type Props<T> = CProps & {
   initial: T;
   children: StateConsumer<T, ReactNode>;
 };
 
-export default function State<T>({ as = 'div', initial, children, ...rest }: Props<T>) {
+export default function State<T>({ initial, children, ...rest }: Props<T>) {
   const [state, setState] = useState(initial);
-
-  return createElement(as || Fragment, rest, children(state, setState));
+  return element({ ...rest, children: children(state, setState) });
 }

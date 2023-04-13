@@ -1,4 +1,5 @@
 import { CProps, StateConsumer } from '../types';
+import { element } from '../utils';
 import { Fragment, ReactNode, createElement, useEffect, useState } from 'react';
 
 type Props<T> = CProps & {
@@ -7,7 +8,7 @@ type Props<T> = CProps & {
   children: StateConsumer<T, ReactNode>;
 };
 
-export default function Effect<T>({ as = 'div', initial, callback, children, ...rest }: Props<T>) {
+export default function Effect<T>({ initial, callback, children, ...rest }: Props<T>) {
   const [state, setState] = useState(initial);
 
   useEffect(() => {
@@ -15,5 +16,5 @@ export default function Effect<T>({ as = 'div', initial, callback, children, ...
     if (cleanup) return cleanup();
   }, [state]);
 
-  return createElement(as || Fragment, rest, children(state, setState));
+  return element({ ...rest, children: children(state, setState) });
 }

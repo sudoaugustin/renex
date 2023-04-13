@@ -1,27 +1,14 @@
-import * as components from '../src';
-import { render } from '@testing-library/react';
+import { element } from '../utils';
 
-const props = {
-  Memo: { deps: [] },
-  State: { initial: '' },
-  Effect: { initial: '', callback: () => {} },
-};
+test('Check `element` method', () => {
+  const conditions = [
+    { as: 'p', output: 'p' },
+    { as: undefined, output: 'div' },
+    { as: '', output: Symbol('react.fragment').toString() },
+  ] as const;
 
-//@ts-ignore
-const names: (keyof typeof props)[] = Object.keys(components);
-
-names.forEach((name) => {
-  test(`Check 'as' for ${name}`, async () => {
-    const $props = { ...props[name], children: () => '' };
-    const Component = components[name];
-
-    //@ts-ignore
-    expect(render(<Component as='' {...$props} />).container.innerHTML).toBe('');
-
-    //@ts-ignore
-    expect(render(<Component {...$props} />).container.innerHTML).toBe('<div></div>');
-
-    //@ts-ignore
-    expect(render(<Component as='p' {...$props} />).container.innerHTML).toBe('<p></p>');
+  conditions.forEach(({ as, output }) => {
+    const { type } = element({ as, children: 'Helloworld' });
+    expect(type.toString()).toBe(output);
   });
 });

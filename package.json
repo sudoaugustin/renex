@@ -4,9 +4,9 @@
   "version": "0.2.0",
   "license": "MIT",
   "description": "Useful react components that will save your day",
-  "main": "cjs/index.js",
-  "module": "esm/index.js",
-  "types": "esm/index.d.ts",
+  "main": "cjs/src/index.js",
+  "types": "esm/src/index.d.ts",
+  "module": "esm/src/index.js",
   "sideEffects": false,
   "files": [
     "cjs",
@@ -24,8 +24,8 @@
   "scripts": {
     "test": "jest",
     "build": "rm -rf cjs esm && yarn build:esm && yarn build:cjs",
-    "build:esm": "tsc -p tsconfig.build.json --outDir ./esm && esbuild src/*.tsx --format=esm --outdir=./esm",
-    "build:cjs": "tsc -p tsconfig.build.json --outDir ./cjs && esbuild src/*.tsx --format=cjs --outdir=./cjs",
+    "build:esm": "tsc -p tsconfig.build.json --outDir ./esm && esbuild src/*.tsx hooks/*.ts utils/*ts --format=esm --outdir=./esm",
+    "build:cjs": "tsc -p tsconfig.build.json --outDir ./cjs && esbuild src/*.tsx hooks/*.ts utils/*ts --format=cjs --outdir=./cjs",
     "prepare": "husky install"
   },
   "bugs": {
