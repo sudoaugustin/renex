@@ -9,4 +9,9 @@
     "moduleResolution": "node",
     "forceConsistentCasingInFileNames": true,
   },
+  "include": [
+    "src",
+    "utils",
+    "tests",
+  ]
 }
