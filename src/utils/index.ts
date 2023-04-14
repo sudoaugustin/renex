@@ -1,6 +1,6 @@
 import { CProps } from '../../types';
-import { Fragment, ReactNode, createElement } from 'react';
+import { ElementType, Fragment, ReactNode, createElement } from 'react';
 
-export function element({ as = 'div', children, ...rest }: CProps & { children: ReactNode }) {
+export function element<T extends ElementType>({ as, children, ...rest }: CProps<T> & { children: ReactNode }) {
   return createElement(as || Fragment, rest, children);
 }

@@ -1,5 +1,10 @@
-import { HTMLProps, ReactHTML } from 'react';
+import { ElementType } from 'react';
 
-export type CProps = { as?: '' } | ({ as?: keyof ReactHTML } & Omit<HTMLProps<HTMLElement>, 'ref' | 'children'>);
+export type StateConsumer<TState, TChild> = (
+  state: TState,
+  setState: (newState: TState | ((oldState: TState) => TState)) => void,
+) => TChild;
 
-export type StateConsumer<T, R> = (state: T, setState: (newState: T | ((oldState: T) => T)) => void) => R;
+export type CProps<T extends ElementType> = { as?: T } & (T extends keyof JSX.IntrinsicElements
+  ? Omit<JSX.IntrinsicElements[T], 'children'>
+  : unknown);

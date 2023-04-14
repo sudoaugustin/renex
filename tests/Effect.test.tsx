@@ -1,11 +1,11 @@
 import { Effect } from '../src';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 const user = userEvent.setup();
 
 test('Check Effect', async () => {
-  const { container } = render(
+  const { container, getByTestId } = render(
     <Effect
       initial="Bob"
       callback={(user) => {
@@ -19,12 +19,12 @@ test('Check Effect', async () => {
       )}
     </Effect>,
   );
-  const p = screen.getByTestId('user');
+  const p = getByTestId('user');
 
   expect(p.dataset.name).toBe('bob');
   expect(container.textContent).toBe('Bob');
 
-  await user.click(screen.getByTestId('user'));
+  await user.click(getByTestId('user'));
 
   expect(p.dataset.name).toBe('alice');
   expect(container.textContent).toBe('Alice');
