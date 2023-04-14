@@ -1,6 +1,6 @@
-import useIsBrowser from '../hooks/useIsBrowser';
 import { CProps } from '../types';
-import { element } from '../utils';
+import useIsBrowser from './hooks/useIsBrowser';
+import { element } from './utils';
 import { ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 

@@ -9,6 +9,9 @@
       }
     },
     "ignore": [
+      "tsc",
+      "esm",
+      "cjs",
       "/node_modules"
     ]
   },

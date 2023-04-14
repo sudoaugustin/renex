@@ -1,4 +1,4 @@
-import { element } from '../utils';
+import { element } from '../src/utils';
 
 test('Check `element` method', () => {
   const conditions = [

@@ -1,4 +1,4 @@
-import { CProps } from '../types';
+import { CProps } from '../../types';
 import { Fragment, ReactNode, createElement } from 'react';
 
 export function element({ as = 'div', children, ...rest }: CProps & { children: ReactNode }) {
