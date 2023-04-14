@@ -9,7 +9,7 @@
       }
     },
     "ignore": [
-      "tsc",
+      "dts",
       "esm",
       "cjs",
       "/node_modules"
