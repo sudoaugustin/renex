@@ -1,3 +1,14 @@
+## [0.3.0](https://github.com/sudoaugustin/renex/compare/v0.2.0...v0.3.0)
+
+### Added
+- `Portal` - Render component in different part of DOM.
+
+### Changed
+- The default value of `as` to `Fragment` from `''`
+- Upgrade typescript intellisense for Component Props
+
+
+
 ## [0.2.0](https://github.com/sudoaugustin/renex/compare/v0.0.2...v0.2.0)
 
 ### Added

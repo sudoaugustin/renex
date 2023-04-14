@@ -1,11 +1,11 @@
 import { Memo, State } from '../src';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 const user = userEvent.setup();
 
 test('Check Memo', async () => {
-  render(
+  const { getByTestId } = render(
     <State initial={{ name: 'alice', last_update: '2 min ago' }}>
       {(user, setUser) => (
         <div>
@@ -14,7 +14,7 @@ test('Check Memo', async () => {
             onClick={() => setUser({ ...user, name: 'bob' })}
             onDoubleClick={() => setUser({ ...user, last_update: 'Just Now' })}
           />
-          <Memo data-testid="link" deps={[user.last_update]}>
+          <Memo as="div" data-testid="link" deps={[user.last_update]}>
             {() => `domain.com/${user.name}`}
           </Memo>
         </div>
@@ -22,8 +22,8 @@ test('Check Memo', async () => {
     </State>,
   );
 
-  const btn = await screen.findByTestId('btn');
-  const link = await screen.findByTestId('link');
+  const btn = getByTestId('btn');
+  const link = getByTestId('link');
 
   await user.click(btn);
 
