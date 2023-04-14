@@ -1,5 +1,5 @@
 import { CProps } from '../types';
-import { element } from '../utils';
+import { element } from './utils';
 import { DependencyList, ReactNode, useMemo } from 'react';
 
 type Props<T> = CProps & { deps: T; children: (deps: T) => ReactNode };

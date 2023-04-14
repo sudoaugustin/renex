@@ -7,6 +7,7 @@ yarn-error.log*
 
 cjs
 esm
+tsc
 node_modules/
 
 package-lock.json

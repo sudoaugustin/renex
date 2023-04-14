@@ -1,5 +1,5 @@
 import { CProps, StateConsumer } from '../types';
-import { element } from '../utils';
+import { element } from './utils';
 import { Fragment, ReactNode, createElement, useEffect, useState } from 'react';
 
 type Props<T> = CProps & {
