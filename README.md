@@ -16,3 +16,4 @@ npm install renex
 - [`State`](./docs/State.md) - Simple way to manage state
 - [`Effect`](./docs/Effect.md) - Manage state and invoke callback when state changes
 - [`Memo`](./docs/Memo.md) - Memoize the children
+- [`Portal`](./docs/Portal.md) - Renders a React subtree in a different part of the DOM.
