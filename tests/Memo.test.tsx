@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 
 const user = userEvent.setup();
 
-test('Check Memo', async () => {
+test('Check `Memo`', async () => {
   const { getByTestId } = render(
     <State initial={{ name: 'alice', last_update: '2 min ago' }}>
       {(user, setUser) => (
