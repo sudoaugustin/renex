@@ -1,7 +1,7 @@
 import { Portal } from '../src';
 import { render } from '@testing-library/react';
 
-test('Check Portal', () => {
+test('Check `Portal`', () => {
   const { getByText, getByTestId } = render(
     <div data-testid="container">
       <Portal>I'm being portalled</Portal>

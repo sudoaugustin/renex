@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 
 const user = userEvent.setup();
 
-test('Check Effect', async () => {
+test('Check `Effect`', async () => {
   const { container, getByTestId } = render(
     <Effect
       initial="Bob"

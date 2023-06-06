@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 
 export default function useIsBrowser() {
   const [isBrowser, setBrowser] = useState(false);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setBrowser(true);
   }, []);
 
