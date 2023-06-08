@@ -1,7 +1,7 @@
 {
   "name": "renex",
   "author": "https://github.com/sudoaugustin",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "license": "MIT",
   "description": "Useful react components that will save your day",
   "main": "cjs/index.js",

@@ -4,37 +4,40 @@ import { ElementType, ReactNode, useLayoutEffect, useSyncExternalStore } from 'r
 
 type Props<T> = {
   name: string;
-  children: (state: T, setState: (v: T) => void) => ReactNode;
+  initial?: T;
+  children: (value: T | undefined, set: (v: T) => void, remove: () => void) => ReactNode;
 };
 
-const event = new Event('renex-storage');
+function setItem(name: string) {
+  return (value: unknown) => localStorage.setItem(name, JSON.stringify(value));
+}
 
-function getValue<TState>(name: string) {
-  const value = localStorage.getItem(name);
-  return value as TState;
+function removeItem(name: string) {
+  localStorage.removeItem(name);
 }
 
 function subscriber(callback: EventListener) {
-  document.addEventListener('renex-storage', callback);
-  return () => document.removeEventListener('renex-storage', callback);
+  window.addEventListener('storage', callback);
+  return () => window.removeEventListener('storage', callback);
 }
 
 export default function Storage<TState = string, TTag extends ElementType = ElementType>({
   name,
+  initial,
   children,
   ...rest
 }: Props<TState> & CProps<TTag>) {
-  const state = useSyncExternalStore<TState>(subscriber, () => getValue(name));
+  const set = setItem(name);
+
+  const value = useSyncExternalStore<TState | null>(subscriber, () => JSON.parse(localStorage.getItem(name) as string));
 
   useLayoutEffect(() => {
-    document.dispatchEvent(event);
-  }, []);
+    const value = localStorage.getItem(name);
+    value === null && initial !== undefined && set(initial);
+  }, [name, initial]);
 
-  const setState = (value: TState) => {
-    const newValue = typeof value === 'string' ? value : JSON.stringify(value);
-    localStorage.setItem(name, newValue);
-    document.dispatchEvent(event);
-  };
-
-  return element({ ...rest, children: children(state, setState) });
+  return element({
+    ...rest,
+    children: children(value === null ? initial : value, set, () => removeItem(name)),
+  });
 }
