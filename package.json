@@ -28,7 +28,8 @@
     "build:dts": "tsc -p tsconfig.build.json --outDir ./dts",
     "build:esm": "esbuild ./src/*.tsx ./src/**/*.ts --format=esm --outdir=./esm",
     "build:cjs": "esbuild ./src/*.tsx ./src/**/*.ts --format=cjs --outdir=./cjs",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "release:local": "yarn build && yarn link && cd nextjs && yarn link 'renex'"
   },
   "bugs": {
     "url": "https://github.com/sudoaugustin/renex/issues"
