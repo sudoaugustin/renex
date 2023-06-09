@@ -1,6 +1,6 @@
 import { CProps } from '../types';
 import { element } from './utils';
-import { ElementType, ReactNode, useLayoutEffect, useSyncExternalStore } from 'react';
+import { ElementType, ReactNode, useEffect, useSyncExternalStore } from 'react';
 
 type Props<T> = {
   name: string;
@@ -29,9 +29,13 @@ export default function Storage<TState = string, TTag extends ElementType = Elem
 }: Props<TState> & CProps<TTag>) {
   const set = setItem(name);
 
-  const value = useSyncExternalStore<TState | null>(subscriber, () => JSON.parse(localStorage.getItem(name) as string));
+  const value = useSyncExternalStore<TState | null>(
+    subscriber,
+    () => JSON.parse(localStorage.getItem(name) as string),
+    () => initial || null,
+  );
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const value = localStorage.getItem(name);
     value === null && initial !== undefined && set(initial);
   }, [name, initial]);
