@@ -25,5 +25,5 @@ test('Check `Storage`', async () => {
 
   await user.click(getByTestId('update-btn'));
 
-  // expect(getByTestId('token').innerHTML).toBe(value);
+  expect(getByTestId('token').innerHTML).toBe(value);
 });

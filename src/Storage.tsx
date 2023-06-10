@@ -2,33 +2,44 @@ import { CProps } from '../types';
 import { element } from './utils';
 import { ElementType, ReactNode, useEffect, useSyncExternalStore } from 'react';
 
+type Set<T> = (v: T) => void;
+
+type Remove = () => void;
+
 type Props<T> = {
   name: string;
   initial?: T;
-  children: (value: T | undefined, set: (v: T) => void, remove: () => void) => ReactNode;
+  children: (value: T | undefined, set: Set<T>, remove: Remove) => ReactNode;
 };
 
-function setItem(name: string) {
-  return (value: unknown) => localStorage.setItem(name, JSON.stringify(value));
-}
+type ActionProps<T> = {
+  name: string;
+  children: (set: Set<T>, remove: Remove) => ReactNode;
+};
 
-function removeItem(name: string) {
+const event = new Event('renex-storage');
+
+const setItem = (name: string) => (value: unknown) => {
+  localStorage.setItem(name, JSON.stringify(value));
+  window.dispatchEvent(event);
+};
+
+const removeItem = (name: string) => {
   localStorage.removeItem(name);
-}
+  window.dispatchEvent(event);
+};
 
 function subscriber(callback: EventListener) {
-  window.addEventListener('storage', callback);
-  return () => window.removeEventListener('storage', callback);
+  window.addEventListener('renex-storage', callback);
+  return () => window.removeEventListener('renex-storage', callback);
 }
 
-export default function Storage<TState = string, TTag extends ElementType = ElementType>({
+function Storage<TState = string, TTag extends ElementType = ElementType>({
   name,
   initial,
   children,
   ...rest
 }: Props<TState> & CProps<TTag>) {
-  const set = setItem(name);
-
   const value = useSyncExternalStore<TState | null>(
     subscriber,
     () => JSON.parse(localStorage.getItem(name) as string),
@@ -36,12 +47,22 @@ export default function Storage<TState = string, TTag extends ElementType = Elem
   );
 
   useEffect(() => {
-    const value = localStorage.getItem(name);
-    value === null && initial !== undefined && set(initial);
-  }, [name, initial]);
+    window.dispatchEvent(event);
+  }, []);
 
   return element({
     ...rest,
-    children: children(value === null ? initial : value, set, () => removeItem(name)),
+    children: children(value === null ? initial : value, setItem(name), () => removeItem(name)),
   });
 }
+
+function Action<TState = string, TTag extends ElementType = ElementType>({ name, children, ...rest }: ActionProps<TState> & CProps<TTag>) {
+  return element({
+    ...rest,
+    children: children(setItem(name), () => removeItem(name)),
+  });
+}
+
+Storage.Action = Action;
+
+export default Storage;

@@ -25,11 +25,12 @@
   "scripts": {
     "test": "jest",
     "build": "rm -rf cjs esm dts && yarn build:dts && yarn build:esm && yarn build:cjs",
+    "prepare": "husky install",
     "build:dts": "tsc -p tsconfig.build.json --outDir ./dts",
     "build:esm": "esbuild ./src/*.tsx ./src/**/*.ts --format=esm --outdir=./esm",
     "build:cjs": "esbuild ./src/*.tsx ./src/**/*.ts --format=cjs --outdir=./cjs",
-    "prepare": "husky install",
-    "release:local": "yarn build && yarn link && cd nextjs && yarn link 'renex'"
+    "publish:local": "yarn build && yarn unpublish:local && yarn link && yarn link --cwd node_modules/react && yarn link --cwd node_modules/react-dom && cd tests-ssr && yarn link:renex",
+    "unpublish:local": "cd tests-ssr && yarn unlink:renex && cd ../ && yarn unlink && yarn unlink --cwd node_modules/react && yarn unlink --cwd node_modules/react-dom"
   },
   "bugs": {
     "url": "https://github.com/sudoaugustin/renex/issues"

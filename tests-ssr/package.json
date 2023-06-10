@@ -2,13 +2,14 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "link:renex": "yarn link renex && yarn link react && yarn link react-dom",
+    "unlink:renex": "yarn unlink renex && yarn unlink react && yarn unlink react-dom"
   },
   "dependencies": {
     "next": "13.4.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "renex": "^0.4.1-alpha.fdff2b7",
     "tailwindcss": "3.3.2"
   },
   "devDependencies": {
