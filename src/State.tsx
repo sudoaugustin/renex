@@ -1,3 +1,4 @@
+'use client';
 import { CProps, StateConsumer } from '../types';
 import { element } from './utils';
 import { ElementType, ReactNode, useState } from 'react';
