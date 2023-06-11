@@ -25,4 +25,4 @@ import { Effect } from 'renex';
 | :--- | :--- | :------ | :----------
 | as | string | `Fragment` | HTML tag to render.
 | initial | any |  | Initial value to pass into `useState` hook.
-| callback | (state, setState) => void \| Function | | A function to call inside `useEffect` everytime state changes. Can also return cleanup function.
+| callback | (state, setState): void \| Function | | A function to call inside `useEffect` everytime state changes. Can also return cleanup function.

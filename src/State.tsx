@@ -1,14 +1,13 @@
-'use client';
 import { CProps, StateConsumer } from '../types';
 import { element } from './utils';
-import { ElementType, ReactNode, useState } from 'react';
+import { ReactNode, useState } from 'react';
 
-type Props<T> = {
+type Props<T> = CProps & {
   initial: T;
   children: StateConsumer<T, ReactNode>;
 };
 
-export default function State<TState, TTag extends ElementType>({ initial, children, ...rest }: Props<TState> & CProps<TTag>) {
+export default function State<TState>({ as, initial, children, ...rest }: Props<TState>) {
   const [state, setState] = useState(initial);
   return element({ ...rest, children: children(state, setState) });
 }

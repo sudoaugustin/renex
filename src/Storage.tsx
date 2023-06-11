@@ -1,26 +1,30 @@
 import { CProps } from '../types';
 import { element } from './utils';
-import { ElementType, ReactNode, useEffect, useSyncExternalStore } from 'react';
+import { ReactNode, useEffect, useSyncExternalStore } from 'react';
 
 type Set<T> = (v: T) => void;
 
 type Remove = () => void;
 
-type Props<T> = {
+type Common<T> = CProps & {
   name: string;
-  initial?: T;
-  children: (value: T | undefined, set: Set<T>, remove: Remove) => ReactNode;
+  serializer?: (value: T) => string;
 };
 
-type ActionProps<T> = {
-  name: string;
+type Props<T> = Common<T> & {
+  initial?: T;
+  children: (value: T | undefined, set: Set<T>, remove: Remove) => ReactNode;
+  deserializer?: (value: string) => T;
+};
+
+type ActionProps<T> = Common<T> & {
   children: (set: Set<T>, remove: Remove) => ReactNode;
 };
 
 const event = new Event('renex-storage');
 
-const setItem = (name: string) => (value: unknown) => {
-  localStorage.setItem(name, JSON.stringify(value));
+const setItem = (name: string, serializer: Function) => (value: unknown) => {
+  localStorage.setItem(name, serializer(value));
   window.dispatchEvent(event);
 };
 
@@ -30,39 +34,42 @@ const removeItem = (name: string) => {
 };
 
 function subscriber(callback: EventListener) {
+  window.addEventListener('storage', callback);
   window.addEventListener('renex-storage', callback);
-  return () => window.removeEventListener('renex-storage', callback);
+  return () => {
+    window.addEventListener('storage', callback);
+    window.removeEventListener('renex-storage', callback);
+  };
 }
 
-function Storage<TState = string, TTag extends ElementType = ElementType>({
+function Storage<TState = string>({
   name,
   initial,
   children,
+  serializer = JSON.stringify,
+  deserializer = JSON.parse,
   ...rest
-}: Props<TState> & CProps<TTag>) {
-  const value = useSyncExternalStore<TState | null>(
+}: Props<TState>) {
+  const value = useSyncExternalStore<null | string>(
     subscriber,
-    () => JSON.parse(localStorage.getItem(name) as string),
-    () => initial || null,
+    () => localStorage.getItem(name),
+    () => null,
   );
 
-  useEffect(() => {
-    window.dispatchEvent(event);
-  }, []);
-
   return element({
     ...rest,
-    children: children(value === null ? initial : value, setItem(name), () => removeItem(name)),
+    // Handle server-rendering and deserializing here to avoid useSyncExternalStore with immutable data.
+    children: children(value === null ? initial : deserializer(value), setItem(name, serializer), () => removeItem(name)),
   });
 }
 
-function Action<TState = string, TTag extends ElementType = ElementType>({ name, children, ...rest }: ActionProps<TState> & CProps<TTag>) {
+function StorageAction<TState = string>({ name, children, serializer = JSON.stringify, ...rest }: ActionProps<TState>) {
   return element({
     ...rest,
-    children: children(setItem(name), () => removeItem(name)),
+    children: children(setItem(name, serializer), () => removeItem(name)),
   });
 }
 
-Storage.Action = Action;
+Storage.Action = StorageAction;
 
 export default Storage;

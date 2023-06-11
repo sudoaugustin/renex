@@ -1,14 +1,14 @@
 import { CProps, StateConsumer } from '../types';
 import { element } from './utils';
-import { ElementType, ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 
-type Props<T> = {
+type Props<T> = CProps & {
   initial: T;
   callback: StateConsumer<T, void | Function>;
   children: StateConsumer<T, ReactNode>;
 };
 
-export default function Effect<TState, TTag extends ElementType>({ initial, callback, children, ...rest }: Props<TState> & CProps<TTag>) {
+export default function Effect<TState>({ initial, callback, children, ...rest }: Props<TState>) {
   const [state, setState] = useState(initial);
 
   useEffect(() => {
