@@ -25,8 +25,8 @@ import { Storage } from 'renex';
 | as | string | `Fragment` | HTML tag to render.
 | name | string |  | Local storage key.
 | initial | any |  | Intital value that will be used in server render and if the value is not found in local storage
-| serializer | (value: T):string | `JSON.stringify` | Function to serialize value into a string to be saved in local storage
-| deserializer | (value: string):T | `JSON.parse` | Function to deserialize string value from local storage to value
+| serializer | `(value: T):string` | `JSON.stringify` | Function to serialize value into a string to be saved in local storage
+| deserializer | `(value: string):T` | `JSON.parse` | Function to deserialize string value from local storage to value
 
 ## Global synchronization
 
