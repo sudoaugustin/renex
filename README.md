@@ -1,6 +1,6 @@
 # `renex`
 
-Useful react components that will save your day
+Useful react components
 
 
 ```bash
