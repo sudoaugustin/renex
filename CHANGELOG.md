@@ -1,3 +1,13 @@
+## [0.4.1](https://github.com/sudoaugustin/renex/compare/v0.3.0...v0.4.1)
+
+### Added
+- `LocalStorage` - Manage values in the local storage
+- `SessionStorage` - Manage values in the session storage
+
+### Fixed
+- TS asking for HTML tag type everytime we define custom type in components.
+
+
 ## [0.3.0](https://github.com/sudoaugustin/renex/compare/v0.2.0...v0.3.0)
 
 ### Added
