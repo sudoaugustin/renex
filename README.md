@@ -17,4 +17,5 @@ npm install renex
 - [`Effect`](./docs/Effect.md) - Manage state and invoke callback when state changes
 - [`Memo`](./docs/Memo.md) - Memoize the children
 - [`Portal`](./docs/Portal.md) - Renders a React subtree in a different part of the DOM.
-- [`Storage`](./docs/Storage.md) - Manage values in the `localStorage`
+- [`LocalStorage`](./docs/LocalStorage.md) - Manage values in the local storage with global synchronization.
+- [`SessionStorage`](./docs/SessionStorage.md) - Manage values in the session storage with global synchronization.
