@@ -8,6 +8,14 @@ import { SessionStorage } from 'renex';
 </SessionStorage>
 
 // If you want to avoid unnecessary re-renders
+<SessionStorage.Set name="token">
+  {(setToken) => { /* ... */ }}
+</SessionStorage.Set>
+
+<SessionStorage.Remove name="token">
+  {(setToken) => { /* ... */ }}
+</SessionStorage.Remove>
+
 <SessionStorage.Action name="token">
   {(setToken,removeToken) => { /* ... */ }}
 </SessionStorage.Action>
