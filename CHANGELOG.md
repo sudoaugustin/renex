@@ -1,3 +1,9 @@
+## [0.4.2](https://github.com/sudoaugustin/renex/compare/v0.4.1...v0.4.2)
+
+### Added
+- `.Set` & `.Remove` to `LocalStorage` & `SessionStorage` wrap these with HOF
+
+
 ## [0.4.1](https://github.com/sudoaugustin/renex/compare/v0.3.0...v0.4.1)
 
 ### Added
