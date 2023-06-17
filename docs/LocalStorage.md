@@ -8,6 +8,14 @@ import { LocalStorage } from 'renex';
 </LocalStorage>
 
 // If you want to avoid unnecessary re-renders
+<LocalStorage.Set name="token">
+  {(setToken) => { /* ... */ }}
+</LocalStorage.Set>
+
+<LocalStorage.Remove name="token">
+  {(setToken) => { /* ... */ }}
+</LocalStorage.Remove>
+
 <LocalStorage.Action name="token">
   {(setToken,removeToken) => { /* ... */ }}
 </LocalStorage.Action>

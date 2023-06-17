@@ -1,10 +1,11 @@
 import Link from 'next/link';
-import * as components from 'renex';
+
+const components = ['State', 'Storage', 'Portal'];
 
 export default function Page() {
   return (
     <div className="space-y-4">
-      {Object.keys(components).map((component) => (
+      {components.map((component) => (
         <Link key={component} href={`/${component.toLowerCase()}`} className="font-bold block bg-sky-400 px-4 py-2 text-center text-white">
           {component}
         </Link>

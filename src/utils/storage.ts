@@ -1,5 +1,6 @@
+import { element } from '.';
 import { CProps } from '../../types';
-import { ReactNode } from 'react';
+import { ReactNode, useSyncExternalStore } from 'react';
 
 type Set<T> = (v: T) => void;
 
@@ -16,9 +17,11 @@ type Props<T> = Common<T> & {
   deserializer?: (value: string) => T;
 };
 
-type ActionProps<T> = Common<T> & {
-  children: (set: Set<T>, remove: Remove) => ReactNode;
-};
+type SetProps<T> = Common<T> & { children: (set: Set<T>) => ReactNode };
+
+type RemoveProps<T> = Common<T> & { children: (remove: Remove) => ReactNode };
+
+type ActionProps<T> = Common<T> & { children: (set: Set<T>, remove: Remove) => ReactNode };
 
 export default function storage(isSession: boolean) {
   const ename = isSession ? 'renex-session-storage' : 'renex-local-storage';
@@ -44,13 +47,42 @@ export default function storage(isSession: boolean) {
     };
   };
 
-  return {
-    getItem: (name: string) => storage.getItem(name),
-    setItem,
-    removeItem,
-    subscriber,
-    getServerSnap: () => null,
-  };
-}
+  function Storage<TState = string>({
+    name,
+    initial,
+    children,
+    serializer = JSON.stringify,
+    deserializer = JSON.parse,
+    ...rest
+  }: Props<TState>) {
+    const value = useSyncExternalStore<null | string>(
+      subscriber,
+      () => storage.getItem(name),
+      () => null,
+    );
 
-export type { Props, ActionProps };
+    return element({
+      ...rest,
+      // Handle server-rendering and deserializing here to avoid useSyncExternalStore with immutable data.
+      children: children(value === null ? initial : deserializer(value), setItem(name, serializer), () => removeItem(name)),
+    });
+  }
+
+  function SetStorage<TState = string>({ name, children, serializer = JSON.stringify, ...rest }: SetProps<TState>) {
+    return element({ ...rest, children: children(setItem(name, serializer)) });
+  }
+
+  function RemoveStorage<TState = string>({ name, children, serializer = JSON.stringify, ...rest }: RemoveProps<TState>) {
+    return element({ ...rest, children: children(() => removeItem(name)) });
+  }
+
+  function ActionStorage<TState = string>({ name, children, serializer = JSON.stringify, ...rest }: ActionProps<TState>) {
+    return element({ ...rest, children: children(setItem(name, serializer), () => removeItem(name)) });
+  }
+
+  Storage.Set = SetStorage;
+  Storage.Remove = RemoveStorage;
+  Storage.Action = ActionStorage;
+
+  return Storage;
+}
