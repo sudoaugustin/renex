@@ -13,7 +13,7 @@ import { SessionStorage } from 'renex';
 </SessionStorage.Set>
 
 <SessionStorage.Remove name="token">
-  {(setToken) => { /* ... */ }}
+  {(removeToken) => { /* ... */ }}
 </SessionStorage.Remove>
 
 <SessionStorage.Action name="token">
