@@ -13,7 +13,7 @@ import { LocalStorage } from 'renex';
 </LocalStorage.Set>
 
 <LocalStorage.Remove name="token">
-  {(setToken) => { /* ... */ }}
+  {(removeToken) => { /* ... */ }}
 </LocalStorage.Remove>
 
 <LocalStorage.Action name="token">
