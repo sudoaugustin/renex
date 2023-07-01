@@ -7,7 +7,7 @@ type Props<T> = CProps & {
   children: StateConsumer<T, ReactNode>;
 };
 
-export default function State<TState>({ as, initial, children, ...rest }: Props<TState>) {
+export default function State<TState>({ initial, children, ...rest }: Props<TState>) {
   const [state, setState] = useState(initial);
   return element({ ...rest, children: children(state, setState) });
 }
