@@ -23,6 +23,7 @@
     "toggle",
     "effect",
     "portal",
+    "clipboard",
     "localstorage",
     "sessionstorage"
   ],
