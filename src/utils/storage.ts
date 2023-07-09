@@ -55,7 +55,7 @@ export default function storage(isSession: boolean) {
     deserializer = JSON.parse,
     ...rest
   }: Props<TState>) {
-    const value = useSyncExternalStore<null | string>(
+    const value = useSyncExternalStore(
       subscriber,
       () => storage.getItem(name),
       () => null,

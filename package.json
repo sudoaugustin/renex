@@ -1,7 +1,7 @@
 {
   "name": "renex",
   "author": "https://github.com/sudoaugustin",
-  "version": "0.4.3",
+  "version": "0.5.0",
   "license": "MIT",
   "description": "Useful react components that will save your day",
   "main": "cjs/index.js",
@@ -20,7 +20,12 @@
     "components",
     "memo",
     "state",
-    "effect"
+    "toggle",
+    "effect",
+    "portal",
+    "clipboard",
+    "localstorage",
+    "sessionstorage"
   ],
   "scripts": {
     "test": "jest",

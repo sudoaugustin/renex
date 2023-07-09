@@ -1,3 +1,10 @@
+## [0.5.0](https://github.com/sudoaugustin/renex/compare/v0.4.2...v0.5.0)
+
+### Added
+- `Toggle` - Switch between given values(boolean by default).
+- `Clipboard` - Talk to the clipboard via `navigator.clipboard` API.
+
+
 ## [0.4.2](https://github.com/sudoaugustin/renex/compare/v0.4.1...v0.4.2)
 
 ### Added
