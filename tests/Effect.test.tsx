@@ -24,7 +24,7 @@ test('Check `Effect`', async () => {
   expect(p.dataset.name).toBe('bob');
   expect(container.textContent).toBe('Bob');
 
-  await user.click(getByTestId('user'));
+  await user.click(p);
 
   expect(p.dataset.name).toBe('alice');
   expect(container.textContent).toBe('Alice');
