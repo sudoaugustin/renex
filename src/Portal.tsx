@@ -8,5 +8,7 @@ type Props = CProps & { root?: string; children: ReactNode };
 
 export default function Portal({ root = 'body', ...rest }: Props) {
   const isBrowser = useIsBrowser();
-  return isBrowser ? createPortal(element(rest), document.querySelector(root) as HTMLElement) : null;
+  const portalEle = document.querySelector(root);
+
+  return isBrowser && portalEle ? createPortal(element(rest), portalEle) : null;
 }

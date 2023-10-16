@@ -34,7 +34,7 @@
     "build:dts": "tsc -p tsconfig.build.json --outDir ./dts",
     "build:esm": "esbuild ./src/*.tsx ./src/**/*.ts --format=esm --outdir=./esm",
     "build:cjs": "esbuild ./src/*.tsx ./src/**/*.ts --format=cjs --outdir=./cjs",
-    "publish:local": "yarn build && yarn unpublish:local && yarn link && yarn link --cwd node_modules/react && yarn link --cwd node_modules/react-dom && cd tests-ssr && yarn link:renex",
+    "publish:local": "yarn build && yarn link && yarn link --cwd node_modules/react && yarn link --cwd node_modules/react-dom && cd tests-ssr && yarn link:renex",
     "unpublish:local": "cd tests-ssr && yarn unlink:renex && cd ../ && yarn unlink && yarn unlink --cwd node_modules/react && yarn unlink --cwd node_modules/react-dom"
   },
   "bugs": {
