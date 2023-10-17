@@ -4,11 +4,12 @@ import { element } from './utils';
 import { ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 
-type Props = CProps & { root?: string; children: ReactNode };
+type Props = CProps & { root?: string; children: ReactNode; fallback?: boolean };
 
-export default function Portal({ root = 'body', ...rest }: Props) {
+export default function Portal({ root = 'body', fallback, ...rest }: Props) {
+  const node = element(rest);
   const isBrowser = useIsBrowser();
-  const portalEle = document.querySelector(root);
+  const portalEle = isBrowser && document.querySelector(root);
 
-  return isBrowser && portalEle ? createPortal(element(rest), portalEle) : null;
+  return portalEle ? createPortal(node, portalEle) : fallback ? node : null;
 }
